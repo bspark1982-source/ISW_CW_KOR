@@ -1,0 +1,18 @@
+{
+  "source_csv_rows": 911,
+  "narrative_cells": 708,
+  "unique_narrative_strings": 449,
+  "raw_narrative_characters": 125462,
+  "unique_narrative_characters": 64604,
+  "character_reduction_percent": 48.5,
+  "translated_unique_strings": 449,
+  "country_values": 282,
+  "country_values_mapped": 282,
+  "static_terms": {
+    "layers": 6,
+    "locations": 23,
+    "russian_organizations": 25,
+    "programs": 6,
+    "formats": 2
+  }
+}
