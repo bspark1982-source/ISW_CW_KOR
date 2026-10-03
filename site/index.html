@@ -6,34 +6,54 @@
 <title>러시아의 인지전 인프라 · 인터랙티브 지도</title>
 <meta name="description" content="러시아와 해외 언론 매체 간 협력 협정, 러시아 언론인 교육 프로그램, 러시아 하우스 문화센터를 보여주는 인터랙티브 지도. 미국 전쟁연구소(ISW) 지도의 한국어판.">
 <link rel="icon" href="assets/russia-house.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plus" viewBox="0 0 20 20"><path d="M10 4v12M4 10h12"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 20 20"><path d="M4 10h12"/></symbol>
+  <symbol id="i-home" viewBox="0 0 20 20"><path d="M3.5 7.5V3.5h4M16.5 7.5V3.5h-4M3.5 12.5v4h4M16.5 12.5v4h-4"/></symbol>
+  <symbol id="i-close" viewBox="0 0 20 20"><path d="M5 5l10 10M15 5L5 15"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 20 20"><path d="M12 4.5L6.5 10l5.5 5.5"/></symbol>
+  <symbol id="i-next" viewBox="0 0 20 20"><path d="M8 4.5l5.5 5.5L8 15.5"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 20 20"><path d="M5 8l5 5 5-5"/></symbol>
+  <symbol id="i-out" viewBox="0 0 20 20"><path d="M7 5h8v8M15 5L5 15"/></symbol>
+</svg>
+
 <div class="app">
   <aside class="sidebar" id="sidebar">
     <header class="sidebar-head">
-      <h1>인터랙티브 지도:<br>러시아의 인지전 인프라</h1>
+      <div>
+        <p class="eyebrow">ISW 인터랙티브 지도 · 한국어판</p>
+        <h1>러시아의 인지전 인프라</h1>
+      </div>
       <button class="sidebar-toggle" id="sidebarToggle" aria-expanded="false" aria-controls="sidebarBody">소개</button>
     </header>
     <div class="sidebar-body" id="sidebarBody">
-      <p class="note">ISW는 이 도구를 모바일 기기가 아닌 컴퓨터에서 사용할 것을 강력히 권장합니다. 지도 레이어가 표시되지 않으면 페이지를 새로고침한 뒤 다시 시도하십시오.</p>
-      <p>이 인터랙티브 지도는 러시아와 해외 언론 매체 간 협력 협정, 러시아의 언론인 교육 프로그램, 러시아 하우스 문화센터에 관한 전 세계 데이터를 시각화합니다.</p>
-      <p>시작하려면 관심 있는 국가를 클릭하십시오!</p>
-      <p><strong>팁:</strong> 모든 데이터는 오른쪽 아래의 ‘지도 레이어’ 상자에서 켜고 끌 수 있습니다. 현재 선택된 국가를 해제하려면 왼쪽 아래의 ‘선택 해제’ 버튼을 사용하십시오. 더 많은 도움말은 ‘지도 탐색 및 사용 팁’ 버튼을 클릭하십시오.</p>
-      <button class="btn btn-outline" data-open="tipsDialog"><span class="i-info" aria-hidden="true">i</span> 지도 탐색 및 사용 팁</button>
-      <hr>
-      <h2>관련 ISW 보고서 <small>(영문)</small></h2>
-      <a class="btn btn-primary" target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlin-is-cultivating-an-ai-trained-global-media-cadre-for-lasting-influence/">크렘린의 AI 훈련 글로벌 미디어 인력</a>
-      <a class="btn btn-primary" target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlins-expanding-media-conglomerate/">크렘린의 글로벌 미디어 복합체</a>
-      <hr>
-      <p class="credits"><strong>분석:</strong> Nataliya Bugayova, Jacob Spencer, Lucianna Marquez, Anna Guethoff, Kristofers Krumins<br>
-      <strong>지도 제작:</strong> Natalie Mesplay<br>
-      <strong>원본:</strong> <a href="https://experience.arcgis.com/experience/4a6cab62740646d48b36cbbce9d47814/page/Page" target="_blank" rel="noopener">ISW 인터랙티브 지도 (영문)</a><br>
-      © Institute for the Study of War(ISW, 미국 전쟁연구소). 이 한국어판은 ISW의 허가를 받아 번역·제작되었습니다.</p>
-      <p class="credits">출처 URL은 ISW 원본과 같이 클릭되지 않는 형태(예: “dot”)로 표기됩니다.</p>
+      <p class="lead">이 인터랙티브 지도는 러시아와 해외 언론 매체 간 협력 협정, 러시아의 언론인 교육 프로그램, 러시아 하우스 문화센터에 관한 전 세계 데이터를 시각화합니다.</p>
+      <p>시작하려면 관심 있는 국가를 클릭하십시오.</p>
+      <p class="small">모든 데이터는 오른쪽 아래의 ‘지도 레이어’ 상자에서 켜고 끌 수 있습니다. 현재 선택된 국가를 해제하려면 왼쪽 아래의 ‘선택 해제’ 버튼을 사용하십시오.</p>
+      <button class="text-link" data-open="tipsDialog">지도 탐색 및 사용 팁</button>
+
+      <section class="block">
+        <h2>관련 ISW 보고서 <span>영문</span></h2>
+        <ul class="link-list">
+          <li><a target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlin-is-cultivating-an-ai-trained-global-media-cadre-for-lasting-influence/">크렘린의 AI 훈련 글로벌 미디어 인력<svg class="ic"><use href="#i-out"/></svg></a></li>
+          <li><a target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlins-expanding-media-conglomerate/">크렘린의 글로벌 미디어 복합체<svg class="ic"><use href="#i-out"/></svg></a></li>
+          <li><a target="_blank" rel="noopener" href="https://experience.arcgis.com/experience/4a6cab62740646d48b36cbbce9d47814/page/Page">ISW 원본 지도<svg class="ic"><use href="#i-out"/></svg></a></li>
+        </ul>
+      </section>
+
+      <section class="block credits">
+        <dl>
+          <dt>분석</dt><dd>Nataliya Bugayova, Jacob Spencer, Lucianna Marquez, Anna Guethoff, Kristofers Krumins</dd>
+          <dt>지도</dt><dd>Natalie Mesplay</dd>
+        </dl>
+        <p>© Institute for the Study of War(ISW, 미국 전쟁연구소). 이 한국어판은 ISW의 허가를 받아 번역·제작되었습니다. 출처 URL은 ISW 원본과 같이 클릭되지 않는 형태(예: “dot”)로 표기됩니다.</p>
+        <p>ISW는 이 도구를 모바일 기기보다 컴퓨터에서 사용할 것을 권장합니다.</p>
+      </section>
     </div>
   </aside>
 
@@ -44,51 +64,58 @@
 
     <section class="popup" id="popup" hidden aria-live="polite">
       <div class="popup-head">
+        <p class="eyebrow" id="popupKind"></p>
         <div class="pager" id="pager">
-          <button id="prevBtn" aria-label="이전 항목">‹</button>
+          <button class="icon-btn" id="prevBtn" aria-label="이전 항목"><svg class="ic"><use href="#i-prev"/></svg></button>
           <span id="pageLabel"></span>
-          <button id="nextBtn" aria-label="다음 항목">›</button>
+          <button class="icon-btn" id="nextBtn" aria-label="다음 항목"><svg class="ic"><use href="#i-next"/></svg></button>
         </div>
-        <button class="popup-close" id="closeBtn" aria-label="팝업 닫기">×</button>
+        <button class="icon-btn" id="closeBtn" aria-label="팝업 닫기"><svg class="ic"><use href="#i-close"/></svg></button>
       </div>
       <div class="popup-body" id="popupBody"></div>
     </section>
 
-    <div class="controls" role="group" aria-label="지도 조작">
-      <button id="zoomIn" title="확대" aria-label="확대">+</button>
-      <button id="zoomOut" title="축소" aria-label="축소">−</button>
-      <button id="zoomHome" title="처음 화면" aria-label="처음 화면으로">⌂</button>
-      <button id="clearSel" class="wide" title="선택 해제">선택 해제</button>
+    <div class="controls">
+      <div class="control-group" role="group" aria-label="지도 확대·축소">
+        <button id="zoomIn" title="확대" aria-label="확대"><svg class="ic"><use href="#i-plus"/></svg></button>
+        <button id="zoomOut" title="축소" aria-label="축소"><svg class="ic"><use href="#i-minus"/></svg></button>
+        <button id="zoomHome" title="처음 화면" aria-label="처음 화면으로"><svg class="ic"><use href="#i-home"/></svg></button>
+      </div>
+      <button id="clearSel" class="clear-btn" hidden>선택 해제</button>
     </div>
 
     <section class="layers" id="layers">
-      <button class="layers-head" id="layersToggle" aria-expanded="true" aria-controls="layerList">지도 레이어</button>
+      <button class="layers-head" id="layersToggle" aria-expanded="true" aria-controls="layerList">
+        지도 레이어<svg class="ic"><use href="#i-chevron"/></svg>
+      </button>
       <div class="layer-list" id="layerList"></div>
     </section>
   </main>
 </div>
 
 <dialog id="introDialog">
+  <p class="eyebrow">ISW 인터랙티브 지도 · 한국어판</p>
   <h2>러시아의 인지전 인프라</h2>
   <p>이 지도는 러시아와 해외 언론 매체 간 협력 협정, 러시아의 언론인 교육 프로그램, 러시아 하우스 문화센터를 시각화합니다. 크렘린은 향후 수년간 세계 담론을 형성하기 위해 해외 언론 매체 네트워크와 러시아에서 교육받은 전 세계 언론인 집단을 수년째 육성해 왔습니다.</p>
-  <div class="dialog-links">
-    <a class="btn btn-primary" target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlin-is-cultivating-an-ai-trained-global-media-cadre-for-lasting-influence/">크렘린의 AI 훈련 글로벌 미디어 인력 (영문)</a>
-    <a class="btn btn-primary" target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlins-expanding-media-conglomerate/">크렘린의 글로벌 미디어 복합체 (영문)</a>
-  </div>
-  <p class="credits"><strong>분석:</strong> Nataliya Bugayova, Jacob Spencer, Lucianna Marquez, Anna Guethoff, Kristofers Krumins · <strong>지도 제작:</strong> Natalie Mesplay</p>
-  <form method="dialog"><button class="btn btn-primary">계속</button></form>
+  <ul class="link-list">
+    <li><a target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlin-is-cultivating-an-ai-trained-global-media-cadre-for-lasting-influence/">크렘린의 AI 훈련 글로벌 미디어 인력 <span>영문</span><svg class="ic"><use href="#i-out"/></svg></a></li>
+    <li><a target="_blank" rel="noopener" href="https://understandingwar.org/research/cognitive-warfare/the-kremlins-expanding-media-conglomerate/">크렘린의 글로벌 미디어 복합체 <span>영문</span><svg class="ic"><use href="#i-out"/></svg></a></li>
+  </ul>
+  <p class="small">분석 Nataliya Bugayova, Jacob Spencer, Lucianna Marquez, Anna Guethoff, Kristofers Krumins · 지도 Natalie Mesplay</p>
+  <form method="dialog"><button class="btn" autofocus>지도 보기</button></form>
 </dialog>
 
 <dialog id="tipsDialog">
-  <h2>지도 탐색을 위한 유용한 팁</h2>
+  <p class="eyebrow">도움말</p>
+  <h2>지도 탐색 및 사용 팁</h2>
   <ol class="tips">
     <li>국가나 마커를 클릭하면 해당 지역의 러시아 인지전 프로그램을 자세히 보여주는 팝업이 나타납니다.</li>
-    <li>각 국가 팝업의 왼쪽 위에 있는 화살표를 사용해 그 국가에서 기록된 모든 러시아 인지전 사례를 차례로 볼 수 있습니다.</li>
-    <li>오른쪽 아래 ‘지도 레이어’ 상자에서 각 레이어 옆의 체크 표시로 원하는 데이터 레이어를 켜고 끌 수 있습니다.</li>
+    <li>팝업 위쪽의 화살표로 그 국가에서 기록된 모든 러시아 인지전 사례를 차례로 볼 수 있습니다.</li>
+    <li>오른쪽 아래 ‘지도 레이어’ 상자에서 각 레이어 옆의 체크 표시로 데이터 레이어를 켜고 끌 수 있습니다.</li>
     <li>왼쪽 아래의 ‘선택 해제’ 버튼으로 국가 선택을 해제할 수 있습니다.</li>
     <li>마우스 휠이나 두 손가락 동작으로 확대·축소하고, 끌어서 지도를 이동할 수 있습니다.</li>
   </ol>
-  <form method="dialog"><button class="btn btn-primary">닫기</button></form>
+  <form method="dialog"><button class="btn" autofocus>닫기</button></form>
 </dialog>
 
 <script src="vendor/d3.min.js"></script>
