@@ -10,7 +10,6 @@
   ];
   const FREQ_COLOR = new Map(FREQ_CLASSES);
   const FREQ_DEFAULT = "#828282"; // ISW "All Other Values"
-  const PIE_COLORS = ["#c1ddeb", "#62a0ca", "#fcb8b7", "#70bc6b", "#c9e9ad", "#eb5e60"];
   const ICONS = {
     ru: { href: "assets/agreement-ru.png", w: 15, h: 23 },
     brics: { href: "assets/agreement-brics.png", w: 15, h: 23 },
@@ -269,6 +268,7 @@
   function clearSelection() {
     selection = null;
     $("popup").hidden = true;
+    $("clearSel").hidden = true;
     highlight(null);
   }
 
@@ -296,10 +296,13 @@
     $("pageLabel").textContent = `${index + 1} / ${features.length}`;
     $("prevBtn").disabled = index === 0;
     $("nextBtn").disabled = index === features.length - 1;
+    const { kind, nodes } = contentFor(f);
+    $("popupKind").textContent = kind;
     const body = $("popupBody");
-    body.replaceChildren(...contentFor(f));
+    body.replaceChildren(...nodes);
     body.scrollTop = 0;
     $("popup").hidden = false;
+    $("clearSel").hidden = false;
     highlight(f);
   }
 
@@ -317,81 +320,73 @@
     return dl;
   }
 
+  // Each popup: a category line (eyebrow), the place as the title, then details.
   function contentFor(f) {
     if (f.kind === "agreement") {
       const d = f.d;
-      return [
-        el("h3", {}, "협력 협정"),
-        el("div", { class: "sub" }, d.t === "brics" ? "TV BRICS" : "러시아 국영 매체 협정"),
-        el("p", {}, d.b || ""),
-        fields([
-          ["국가", d.country], ["러시아 기관", d.org], ["협력 기관", d.partner],
-          ["협정 체결일", d.date], ["출처", d.src, "src"],
-        ]),
-      ];
+      return {
+        kind: `언론 협력 협정 · ${d.t === "brics" ? "TV BRICS" : "러시아 국영 매체"}`,
+        nodes: [
+          el("h3", {}, d.country || "협력 협정"),
+          el("p", {}, d.b || ""),
+          fields([
+            ["러시아 기관", d.org], ["협력 기관", d.partner],
+            ["협정 체결일", d.date], ["출처", d.src, "src"],
+          ]),
+        ],
+      };
     }
     if (f.kind === "house") {
       const d = f.d;
-      return [
-        el("h3", {}, `${d.country} 내 러시아 하우스 위치`),
-        el("p", { class: "center", style: "margin-top:10px" }, d.addr || ""),
-        fields([["출처", d.src, "src"], ["러시아 하우스 계정/URL", d.url, "src"]]),
-      ];
+      return {
+        kind: "러시아 하우스",
+        nodes: [
+          el("h3", {}, `${d.country} 내 러시아 하우스 위치`),
+          el("p", {}, d.addr || ""),
+          fields([["출처", d.src, "src"], ["계정/URL", d.url, "src"]]),
+        ],
+      };
     }
     if (f.kind === "taiwan") {
-      return [el("h3", {}, "대만"), el("p", { class: "center", style: "margin-top:12px" }, NO_EVENTS)];
+      return { kind: "러시아 국영 매체 교육", nodes: [el("h3", {}, "대만"), el("p", { class: "empty" }, NO_EVENTS)] };
     }
     const country = data.countries[f.i];
-    const out = [el("h3", {}, "러시아 국영 매체 교육"), el("div", { class: "sub" }, country.n)];
+    const kind = "러시아 국영 매체 교육";
+    const nodes = [el("h3", {}, country.n)];
     if (!f.ev) {
-      out.push(el("p", { class: "center" }, NO_EVENTS));
-      return out;
+      nodes.push(el("p", { class: "empty" }, NO_EVENTS));
+      return { kind, nodes };
     }
     const ev = f.ev;
-    out.push(el("p", {}, ev.b));
-    if (ev.ap) out.push(el("p", { class: "extra" }, el("b", {}, "관련 인물"), ev.ap));
-    if (ev.ac) out.push(el("p", { class: "extra" }, el("b", {}, "추가 설명"), ev.ac));
-    const chart = pieChart(f.i, ev.tc || country.n);
-    if (chart) out.push(chart);
-    out.push(fields([
-      ["러시아 기관", ev.org], ["프로그램", ev.prog], ["협력 기관(해당 시)", ev.partner],
-      ["행사 개최일", ev.date], ["장소", ev.loc], ["진행 방식", ev.fmt], ["출처", ev.src, "src"],
+    nodes.push(el("p", {}, ev.b));
+    if (ev.ap) nodes.push(el("div", { class: "note-block" }, el("b", {}, "관련 인물"), ev.ap));
+    if (ev.ac) nodes.push(el("div", { class: "note-block" }, el("b", {}, "추가 설명"), ev.ac));
+    nodes.push(fields([
+      ["러시아 기관", ev.org], ["프로그램", ev.prog], ["협력 기관", ev.partner],
+      ["개최일", ev.date], ["장소", ev.loc], ["진행 방식", ev.fmt], ["출처", ev.src, "src"],
     ]));
-    return out;
+    const chart = programChart(f.i, ev.tc || country.n);
+    if (chart) nodes.push(chart);
+    return { kind, nodes };
   }
 
-  function pieChart(i, regionName) {
+  // Events per training program in the country (ISW shows this as a pie chart).
+  function programChart(i, regionName) {
     const counts = data.programCounts[i];
     if (!counts) return null;
-    const size = 112, r = size / 2;
-    const arcs = d3.pie().sort(null)(counts);
-    const arc = d3.arc().innerRadius(0).outerRadius(r - 1);
-    const ns = "http://www.w3.org/2000/svg";
-    const svgEl = document.createElementNS(ns, "svg");
-    svgEl.setAttribute("width", size);
-    svgEl.setAttribute("height", size);
-    svgEl.setAttribute("viewBox", `${-r} ${-r} ${size} ${size}`);
-    svgEl.setAttribute("role", "img");
-    svgEl.setAttribute("aria-label", "프로그램별 행사 수 원형 차트");
-    arcs.forEach((a, n) => {
-      if (!a.value) return;
-      const p = document.createElementNS(ns, "path");
-      p.setAttribute("d", arc(a));
-      p.setAttribute("fill", PIE_COLORS[n]);
-      p.setAttribute("stroke", "#fff");
-      p.setAttribute("stroke-width", "1");
-      const t = document.createElementNS(ns, "title");
-      t.textContent = `${data.programs[n]}: ${a.value}건`;
-      p.append(t);
-      svgEl.append(p);
-    });
-    const list = el("ul", {}, data.programs.map((name, n) =>
-      el("li", counts[n] ? {} : { class: "zero" },
-        el("i", { style: `background:${PIE_COLORS[n]}` }), name, el("b", {}, `${counts[n]}건`))));
     const total = counts.reduce((a, b) => a + b, 0);
+    const max = Math.max(...counts);
+    const rows = data.programs
+      .map((name, n) => ({ name, v: counts[n] }))
+      .filter((r) => r.v > 0)
+      .sort((a, b) => b.v - a.v)
+      .map((r) => el("div", { class: "bar-row" },
+        el("span", {}, r.name),
+        el("span", { class: "track" }, el("span", { class: "fill", style: `display:block;width:${(r.v / max) * 100}%` })),
+        el("span", { class: "n" }, String(r.v))));
     return el("div", { class: "chart" },
-      el("h4", {}, `지역별 총 행사 수 (${regionName}) · ${total}건`),
-      el("div", { class: "chart-row" }, svgEl, list));
+      el("div", { class: "section-label" }, el("span", {}, `${regionName} 프로그램별 행사 수`), el("b", {}, `총 ${total}건`)),
+      ...rows);
   }
 
   // ---------- Layer list ----------
